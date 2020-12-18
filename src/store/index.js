@@ -5,11 +5,23 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    currentUser: null,
+    loading:false,
   },
   mutations: {
+    UPDATE_USER(state, user){
+      state.currentUser = user
+    },
+    LOADING_LOGIN(state, loading){
+      state.loading = loading
+    },
   },
   actions: {
-  },
-  modules: {
+    updateUser({commit}, user){
+      commit("UPDATE_USER", user)
+    },
+    loadingLogin({commit},loading){
+      commit("LOADING_LOGIN",loading)
+    },
   }
 })
