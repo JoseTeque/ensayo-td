@@ -5,6 +5,7 @@ import Home from '../views/Home.vue';
 import Login from "../views/Login.vue";
 import Course from '../views/Course.vue';
 import AddCourse from '../views/AddCourse.vue';
+import NotFound from '../views/NotFound.vue'
 
 
 Vue.use(VueRouter)
@@ -39,7 +40,12 @@ const routes = [
     meta:{
       login:true
     }
-  }
+  },
+  {
+    path: '*',
+    name: 'notfound',
+    component: NotFound,
+}, 
 
 ]
 
