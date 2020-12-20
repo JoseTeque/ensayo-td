@@ -1,5 +1,13 @@
 # ensayo-td
 
+# Ingresar al proyecto
+```
+Para autenticación: 
+usuario: jose.guerra@gmail.com
+constraseña: 123456
+
+```
+
 ## Project setup
 ```
 yarn install
