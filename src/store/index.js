@@ -52,7 +52,9 @@ export default new Vuex.Store({
       const url = "https://us-central1-ottoklauss-5927c.cloudfunctions.net/api/courses";
         axios.get(`${url}/${IdCourse}`).then(response => {
         commit("GET_COURSE",response.data)
-        commit("LOADING_LOGIN",false)
+        setTimeout(() => {
+          commit("LOADING_LOGIN",false)
+        },2000)
       })
 
     },
@@ -73,6 +75,16 @@ export default new Vuex.Store({
         dispatch("getCourses")
         commit('LOADING_LOGIN',false);
       });
+    },
+    editCourseNuevo({commit, dispatch}, course){
+      console.log("COURSE: ", course)
+      const url = "https://us-central1-ottoklauss-5927c.cloudfunctions.net/api/courses"
+      axios.put(`${url}/${course.id}`, course.data).then(()=> {
+        dispatch("getCourses");
+        setTimeout(() => {
+          commit('LOADING_LOGIN',false);
+        },2000)
+      })
     }
   }
 })

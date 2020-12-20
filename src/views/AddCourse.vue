@@ -1,6 +1,8 @@
 <template>
   <div class="addCourse">
-   <Form />
+   <v-main v-if="!loading">
+       <Form />
+   </v-main>
   </div>
 </template>
 

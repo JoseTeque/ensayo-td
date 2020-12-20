@@ -45,7 +45,7 @@ export default {
     ...mapState(["courses", "loading"]),
   },
   methods: {
-    ...mapActions(["getCourses","getIdCourse", "loadingLogin","getAddEdit","btnAddEdit"]),
+    ...mapActions(["getCourses","getIdCourse", "loadingLogin","getAddEdit","btnAddEdit","getCourse"]),
     seeCourse(IdCourse){
       this.loadingLogin(true);
       this.getIdCourse(IdCourse);
@@ -57,8 +57,9 @@ export default {
       this.$router.push('/addCourse')
     },
     editar(course){
-       this.agregarToy(course)
-       this.addEdit("Editar juguete")
+      this.loadingLogin(true);
+       this.getCourse(course)
+       this.getAddEdit("Editar juguete")
        this.btnAddEdit("Editar")
        this.$router.push('/addCourse')
     },

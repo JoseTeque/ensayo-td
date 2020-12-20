@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card v-if="!loading"  width="450px" class="mx-auto my-5">
+    <v-card v-if="btn_add_edit==='Agregar' ? !loading : valorLoading()"  width="450px" class="mx-auto my-5">
       <v-card-title class="pb-0">
         <h1 class="mx-auto mb-5">{{ add_edit }}</h1>
       </v-card-title>
@@ -39,18 +39,21 @@ export default {
   data() {
     return {
       NuevoCourse: {
-        name: null,
-        img: null,
-        description: null,
+          data:{
+            name: null,
+            img: null,
+            description: null,
+          }
+        
       },
       editCourse:{}
     };
   },
   computed: {
-    ...mapState(["add_edit", "btn_add_edit", "dialog", "loading", "toy"]),
+    ...mapState(["add_edit", "btn_add_edit", "course","loading"]),
   },
   methods: {
-    ...mapActions(["agregarCourse","loadingLogin"]),
+    ...mapActions(["agregarCourse","loadingLogin","editCourseNuevo"]),
     agregar() {
       if (this.isValidToy()) {
         if(this.btn_add_edit == "Agregar"){
@@ -58,11 +61,11 @@ export default {
             this.agregarCourse(this.NuevoCourse)
             this.$router.push('/home')
         }else{
-           this.editToy.id = this.toy.id;
-           this.editToy.data = this.Nuevotoy
-           this.agregarToy(this.editToy)
-           this.openDialog(true);
-           this.agregarMensaje(this.btn_add_edit);
+           this.editCourse.id = this.course.id;
+           this.editCourse.data = this.NuevoCourse
+           this.loadingLogin(true);
+           this.editCourseNuevo(this.editCourse)
+           this.$router.push('/home')
         }
         
       } else {
@@ -78,15 +81,16 @@ export default {
     },
     volver(){
       this.$router.push('/home')
-    }
-  },
-  created(){
-     if(this.toy.data != undefined){
-       this.Nuevotoy.code = this.toy.data.code
-       this.Nuevotoy.name = this.toy.data.name
-       this.Nuevotoy.price = this.toy.data.price
-       this.Nuevotoy.stock = this.toy.data.stock
-     }
+     
+    },
+     valorLoading(){
+           if(!this.loading){
+                 this.NuevoCourse.name = this.course.data.name
+                 this.NuevoCourse.img = this.course.data.img
+                 this.NuevoCourse.description = this.course.data.description
+                 return true
+           }
+       }
   }
 };
 </script>
