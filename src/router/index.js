@@ -1,8 +1,11 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import firebase from 'firebase';
+import Home from '../views/Home.vue';
 import Login from "../views/Login.vue";
-import firebase from 'firebase'
+import Course from '../views/Course.vue';
+import AddCourse from '../views/AddCourse.vue';
+
 
 Vue.use(VueRouter)
 
@@ -20,7 +23,24 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/course',
+    name: "Course",
+    component: Course,
+    meta:{
+      login:true
+    }
+  },
+  {
+    path: '/addCourse',
+    name: "AddCourse",
+    component: AddCourse,
+    meta:{
+      login:true
+    }
   }
+
 ]
 
 const router = new VueRouter({

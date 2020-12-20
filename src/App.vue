@@ -47,11 +47,13 @@ export default {
     ...mapState(['currentUser'])
   },
    methods:{
-    ...mapActions(["updateUser","loadingLogin"]),
+    ...mapActions(["updateUser","loadingLogin", "getCourses", "getCourse"]),
     logout(){
       firebase.auth().signOut().then(() => {
           this.updateUser(null)
           this.loadingLogin(false)
+          this.getCourses([])
+          this.getCourse({})
           this.$router.push('/login')
      })
     }

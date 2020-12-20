@@ -8,7 +8,11 @@ export default new Vuex.Store({
   state: {
     currentUser: null,
     loading:false,
-    courses: []
+    courses: [],
+    course: {},
+    IdCourse: "",
+    add_edit: '',
+    btn_add_edit:''
   },
   mutations: {
     UPDATE_USER(state, user){
@@ -19,6 +23,18 @@ export default new Vuex.Store({
     },
     GET_COURSES(state, courses){
       state.courses = courses;
+    },
+    GET_COURSE(state,course){
+      state.course = course;
+    },
+    GET_IDCOURSE(state,IdCourse){
+      state.IdCourse = IdCourse
+    },
+    GET_ADD_EDIT(state, addEdit){
+      state.add_edit = addEdit;
+    },
+    BTN_ADD_AEDIT(state, btnAddEdit){
+      state.btn_add_edit = btnAddEdit;
     }
   },
   actions: {
@@ -31,6 +47,32 @@ export default new Vuex.Store({
     getCourses({ commit }){
       const url = "https://us-central1-ottoklauss-5927c.cloudfunctions.net/api/courses";
       axios.get(`${url}`).then(response => commit("GET_COURSES", response.data))
+    },
+    getCourse({commit}, IdCourse){
+      const url = "https://us-central1-ottoklauss-5927c.cloudfunctions.net/api/courses";
+        axios.get(`${url}/${IdCourse}`).then(response => {
+        commit("GET_COURSE",response.data)
+        commit("LOADING_LOGIN",false)
+      })
+
+    },
+    getIdCourse({commit},IdCourse){
+      commit("GET_IDCOURSE",IdCourse);
+    },
+    getAddEdit({commit}, addEdit){
+      commit("GET_ADD_EDIT", addEdit)
+    },
+    btnAddEdit({commit}, btnAddEdit){
+      commit("BTN_ADD_AEDIT",btnAddEdit);
+    },
+    agregarCourse({commit, dispatch}, addCourse){
+      commit
+      dispatch
+      const url = "https://us-central1-ottoklauss-5927c.cloudfunctions.net/api/courses"
+      axios.post(url, addCourse).then(() =>{
+        dispatch("getCourses")
+        commit('LOADING_LOGIN',false);
+      });
     }
   }
 })

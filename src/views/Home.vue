@@ -20,11 +20,10 @@
             >
             <v-card-actions class="btn-action">
               <div>
-                  <v-btn color="red" text @click="reserve">Eliminar</v-btn>
-                  <v-btn color="yellow" text @click="reserve">Editar</v-btn>
+                  <v-btn color="red" text @click.prevent="editar(course.id)">Editar</v-btn>
               </div>
               <div>
-                  <v-btn color="blue" text @click="reserve">VER</v-btn>
+                  <v-btn color="blue" text @click.prevent="seeCourse(course.id)">VER</v-btn>
               </div> 
             </v-card-actions>
           </v-card>
@@ -46,7 +45,23 @@ export default {
     ...mapState(["courses", "loading"]),
   },
   methods: {
-    ...mapActions(["getCourses"]),
+    ...mapActions(["getCourses","getIdCourse", "loadingLogin","getAddEdit","btnAddEdit"]),
+    seeCourse(IdCourse){
+      this.loadingLogin(true);
+      this.getIdCourse(IdCourse);
+      this.$router.push("/course");
+    },
+    addCourse(){
+      this.getAddEdit("Agregando Curso")
+      this.btnAddEdit("Agregar")
+      this.$router.push('/addCourse')
+    },
+    editar(course){
+       this.agregarToy(course)
+       this.addEdit("Editar juguete")
+       this.btnAddEdit("Editar")
+       this.$router.push('/addCourse')
+    },
   },
   created() {
     this.getCourses();
